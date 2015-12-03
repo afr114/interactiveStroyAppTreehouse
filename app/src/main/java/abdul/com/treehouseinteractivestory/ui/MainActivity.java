@@ -1,12 +1,14 @@
-package abdul.com.treehouseinteractivestory;
+package abdul.com.treehouseinteractivestory.ui;
 
-import android.app.SearchManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
+import android.content.Intent;
+
+import abdul.com.treehouseinteractivestory.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,8 +24,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = mNameField.getText().toString();
-                Toast.makeText(MainActivity.this,name, Toast.LENGTH_LONG).show();
+                if (name.matches("") || name == null) {
+                    Toast.makeText(MainActivity.this, "Please input your name!", Toast.LENGTH_LONG).show();
+                } else {
+                    startStory(name);
+                }
             }
         });
     }
+
+    private void startStory(String name){
+        Intent intent = new Intent(this, StoryActivity.class);
+        intent.putExtra("name", name);
+        startActivity(intent);
+     }
 }
